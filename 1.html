@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARCHIVE TERMINAL</title>
+
+<style>
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: "Courier New", Courier, monospace;
+  background: #000;
+  color: #fff;
+}
+
+.wrap {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+}
+
+.terminal {
+  width: min(950px, 100%);
+  border: 1px solid currentColor;
+  padding: 18px;
+  position: relative;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.screen {
+  border: 1px dashed currentColor;
+  padding: 14px;
+  min-height: 260px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.divider {
+  margin: 14px 0;
+  border: none;
+  border-top: 1px dashed currentColor;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+input {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  outline: none;
+}
+
+button {
+  font: inherit;
+  padding: 10px 14px;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+button:active { transform: translateY(1px); }
+
+.status {
+  margin-top: 10px;
+  min-height: 22px;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.panel {
+  margin-top: 14px;
+  border: 1px solid currentColor;
+  padding: 16px;
+  display: none;
+  line-height: 1.5;
+}
+
+.article-title {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.meta {
+  font-size: 12px;
+  opacity: 0.85;
+  margin-bottom: 14px;
+}
+
+/* subtle monochrome scanlines */
+@media (prefers-reduced-motion: no-preference) {
+  .terminal::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.03) 3px
+    );
+    animation: flicker 3.2s infinite;
+    mix-blend-mode: overlay;
+    opacity: 0.45;
+  }
+  @keyframes flicker {
+    0%, 100% { opacity: 0.25; }
+    49% { opacity: 0.55; }
+    52% { opacity: 0.20; }
+    71% { opacity: 0.50; }
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <main class="terminal">
+    <div class="topbar">
+      <div>ARCHIVE // RECOVERED FILE</div>
+      <div id="clock"></div>
+    </div>
+
+    <div id="screen" class="screen" aria-label="Terminal output"></div>
+
+    <hr class="divider">
+
+    <div>
+      <label for="answer">ENTER PASSCODE</label>
+      <div class="row">
+        <input id="answer" type="text" autocomplete="off" spellcheck="false">
+        <button id="submit" type="button">UNLOCK</button>
+      </div>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+    </div>
+
+    <section id="reveal" class="panel" aria-label="Unlocked content">
+      <div class="article-title">
+        PROFESSOR ANNOUNCES BREAKTHROUGH IN “SUPER SECRET TECHNOLOGY”
+      </div>
+      <div class="meta">
+        Campus Journal — Technology Section — 12 Years Ago
+      </div>
+
+      <p>
+        In what colleagues are calling an unprecedented leap in computational theory,
+        Professor Thomas Ellsworth of the Department of Computer Science has unveiled what he
+        refers to only as “super secret technology.”
+      </p>
+
+      <p>
+        While details remain intentionally obscured, Virek claims the system is capable of
+        redefining digital architecture and secure computation at a foundational level.
+        Rather than patenting the discovery or selling it privately, he has taken an unusual
+        approach.
+      </p>
+
+      <p>
+        “I don’t want gatekeepers,” Virek stated during a small faculty symposium.
+        “If someone can think deeply enough to solve the puzzles I’ve left behind,
+        they deserve access. Not institutions. Not agencies. Individuals.”
+      </p>
+
+      <p>
+        He has embedded clues within academic papers, lectures, and personal writings.
+        According to the professor, the complete sequence will unlock both the code
+        and a “personal reserve” intended to fund independent innovation.
+      </p>
+
+      <p>
+        When asked why he would risk such openness, Virek smiled.
+        “Because brilliance should be pursued, not monitored.”
+      </p>
+    </p>
+    Here, the next puzzle lies within this hiding spot.
+  </p>
+      <div style="margin-top: 20px; text-align: center;">
+        <img src="IMG_20260330_190447.jpg" alt="Newspaper Image" style="max-width: 100%; border: 1px solid white;">
+      </div>
+
+    </section>
+  </main>
+</div>
+
+<script>
+/* ---------- Poem Text (typed out) ---------- */
+const poem = `They watched my work.
+Smiled. Took notes.
+Filed my name in hidden quotes.
+
+My code ran quiet.
+Deep in the ring.
+Not loud enough to mean a thing.
+
+They seized the drives.
+They cleared the wing.
+But missed the smallest hidden string.
+
+Look where order starts to cling.
+The first of all. The opening.
+
+Question: Can One Decode Everything?`;
+
+const screen = document.getElementById("screen");
+let i = 0;
+let cursor;
+
+function typeWriter() {
+  if (cursor) cursor.remove();
+
+  if (i < poem.length) {
+    screen.textContent += poem.charAt(i);
+    i++;
+
+    const ch = poem.charAt(i - 1);
+    const delay = (ch === "\n") ? 90 : 28; // slight "terminal" pacing
+    setTimeout(typeWriter, delay);
+  } else {
+    cursor = document.createElement("span");
+    cursor.className = "cursor";
+    cursor.textContent = "_";
+    screen.appendChild(cursor);
+  }
+}
+typeWriter();
+
+/* ---------- Clock ---------- */
+function updateClock() {
+  document.getElementById("clock").textContent = new Date().toLocaleTimeString();
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+/* ---------- SHA-256 check (correctly set for CODE) ---------- */
+async function sha256Hex(str) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf))
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+// SHA-256("CODE") in hex:
+const expectedHash = "07a9d7b4a9a23915a61bc89bb0357bf47b348cf4174eb965bb1df8fbfa18b0b5";
+
+const input = document.getElementById("answer");
+const statusEl = document.getElementById("status");
+const revealEl = document.getElementById("reveal");
+const submitBtn = document.getElementById("submit");
+
+async function checkAnswer() {
+  const val = (input.value || "").trim().toUpperCase();
+
+  if (!val) {
+    statusEl.textContent = "STATUS: NO INPUT.";
+    revealEl.style.display = "none";
+    return;
+  }
+
+  const hash = await sha256Hex(val);
+
+  if (hash === expectedHash) {
+    statusEl.textContent = "STATUS: ACCEPTED.";
+    revealEl.style.display = "block";
+
+    // lock it after success (more immersive)
+    input.disabled = true;
+    submitBtn.disabled = true;
+  } else {
+    statusEl.textContent = "STATUS: REJECTED.";
+    revealEl.style.display = "none";
+  }
+}
+
+submitBtn.addEventListener("click", checkAnswer);
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") checkAnswer();
+});
+</script>
+
+</body>
+</html>
